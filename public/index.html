@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Database Management System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-university"></i> College Database Management</h1>
+            <nav class="nav-tabs">
+                <button class="nav-tab active" data-tab="departments">
+                    <i class="fas fa-building"></i> Departments
+                </button>
+                <button class="nav-tab" data-tab="professors">
+                    <i class="fas fa-user-tie"></i> Professors
+                </button>
+                <button class="nav-tab" data-tab="students">
+                    <i class="fas fa-user-graduate"></i> Students
+                </button>
+                <button class="nav-tab" data-tab="books">
+                    <i class="fas fa-book"></i> Books
+                </button>
+            </nav>
+        </header>
+
+        <main>
+            <!-- Departments Tab -->
+            <div class="tab-content active" id="departments">
+                <div class="section-header">
+                    <h2>Departments</h2>
+                    <button class="btn btn-primary" onclick="showAddForm('departments')">
+                        <i class="fas fa-plus"></i> Add Department
+                    </button>
+                </div>
+                <div class="table-container">
+                    <table id="departments-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Building</th>
+                                <th>Phone</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Professors Tab -->
+            <div class="tab-content" id="professors">
+                <div class="section-header">
+                    <h2>Professors</h2>
+                    <button class="btn btn-primary" onclick="showAddForm('professors')">
+                        <i class="fas fa-plus"></i> Add Professor
+                    </button>
+                </div>
+                <div class="table-container">
+                    <table id="professors-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Department</th>
+                                <th>Title</th>
+                                <th>Office</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Students Tab -->
+            <div class="tab-content" id="students">
+                <div class="section-header">
+                    <h2>Students</h2>
+                    <button class="btn btn-primary" onclick="showAddForm('students')">
+                        <i class="fas fa-plus"></i> Add Student
+                    </button>
+                </div>
+                <div class="table-container">
+                    <table id="students-table">
+                        <thead>
+                            <tr>
+                                <th>Student ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Department</th>
+                                <th>GPA</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Books Tab -->
+            <div class="tab-content" id="books">
+                <div class="section-header">
+                    <h2>Books</h2>
+                    <button class="btn btn-primary" onclick="showAddForm('books')">
+                        <i class="fas fa-plus"></i> Add Book
+                    </button>
+                </div>
+                <div class="table-container">
+                    <table id="books-table">
+                        <thead>
+                            <tr>
+                                <th>ISBN</th>
+                                <th>Title</th>
+                                <th>Author</th>
+                                <th>Department</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal for Add/Edit Forms -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Add Item</h3>
+                <button class="close-btn" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Department Form -->
+                <form id="department-form" class="form-content" style="display: none;">
+                    <div class="form-group">
+                        <label for="dept-name">Name</label>
+                        <input type="text" id="dept-name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="dept-description">Description</label>
+                        <textarea id="dept-description" name="description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="dept-building">Building</label>
+                        <input type="text" id="dept-building" name="building">
+                    </div>
+                    <div class="form-group">
+                        <label for="dept-phone">Phone</label>
+                        <input type="text" id="dept-phone" name="phone">
+                    </div>
+                </form>
+
+                <!-- Professor Form -->
+                <form id="professor-form" class="form-content" style="display: none;">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="prof-first-name">First Name</label>
+                            <input type="text" id="prof-first-name" name="first_name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="prof-last-name">Last Name</label>
+                            <input type="text" id="prof-last-name" name="last_name" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="prof-email">Email</label>
+                        <input type="email" id="prof-email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="prof-phone">Phone</label>
+                        <input type="text" id="prof-phone" name="phone">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="prof-department">Department</label>
+                            <select id="prof-department" name="department_id">
+                                <option value="">Select Department</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="prof-title">Title</label>
+                            <input type="text" id="prof-title" name="title">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="prof-office">Office</label>
+                            <input type="text" id="prof-office" name="office">
+                        </div>
+                        <div class="form-group">
+                            <label for="prof-hire-date">Hire Date</label>
+                            <input type="date" id="prof-hire-date" name="hire_date">
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Student Form -->
+                <form id="student-form" class="form-content" style="display: none;">
+                    <div class="form-group">
+                        <label for="student-id">Student ID</label>
+                        <input type="text" id="student-id" name="student_id" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="student-first-name">First Name</label>
+                            <input type="text" id="student-first-name" name="first_name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="student-last-name">Last Name</label>
+                            <input type="text" id="student-last-name" name="last_name" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="student-email">Email</label>
+                        <input type="email" id="student-email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="student-phone">Phone</label>
+                        <input type="text" id="student-phone" name="phone">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="student-department">Department</label>
+                            <select id="student-department" name="department_id">
+                                <option value="">Select Department</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="student-gpa">GPA</label>
+                            <input type="number" id="student-gpa" name="gpa" min="0" max="4" step="0.01">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="student-enrollment-date">Enrollment Date</label>
+                            <input type="date" id="student-enrollment-date" name="enrollment_date">
+                        </div>
+                        <div class="form-group">
+                            <label for="student-graduation-date">Graduation Date</label>
+                            <input type="date" id="student-graduation-date" name="graduation_date">
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Book Form -->
+                <form id="book-form" class="form-content" style="display: none;">
+                    <div class="form-group">
+                        <label for="book-isbn">ISBN</label>
+                        <input type="text" id="book-isbn" name="isbn" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="book-title">Title</label>
+                        <input type="text" id="book-title" name="title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="book-author">Author</label>
+                        <input type="text" id="book-author" name="author" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="book-publisher">Publisher</label>
+                            <input type="text" id="book-publisher" name="publisher">
+                        </div>
+                        <div class="form-group">
+                            <label for="book-publication-year">Publication Year</label>
+                            <input type="number" id="book-publication-year" name="publication_year" min="1900" max="2024">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="book-edition">Edition</label>
+                            <input type="number" id="book-edition" name="edition" min="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="book-price">Price</label>
+                            <input type="number" id="book-price" name="price" min="0" step="0.01">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="book-quantity">Quantity</label>
+                            <input type="number" id="book-quantity" name="quantity" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="book-department">Department</label>
+                            <select id="book-department" name="department_id">
+                                <option value="">Select Department</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="submitForm()">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast" id="toast"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
